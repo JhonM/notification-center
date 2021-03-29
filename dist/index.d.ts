@@ -1,1 +1,3 @@
-export declare const union: (a: Array<string>, b: Array<string>) => Array<string>;
+import './css/index.scss';
+import NotificationCenter from './notification-center';
+export declare const setup: () => NotificationCenter;

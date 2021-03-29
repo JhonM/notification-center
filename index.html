@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Notification center</title>
+    <link rel="stylesheet" href="dist/index.es.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="notification_center"></div>
+    </div>
+
+    <script src="dist/notification-center.min.js"></script>
+    <script>
+      const notificationId = document.getElementById('notification_center');
+      notificationCenter.setup(notificationId);
+    </script>
+  </body>
+</html>

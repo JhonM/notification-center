@@ -1,1 +1,1 @@
-const o=(o,t)=>[...o,...t];export{o as union};
+class o{constructor(){console.log("init")}}const c=()=>new o;export{c as setup};
