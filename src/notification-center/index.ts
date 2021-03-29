@@ -1,5 +1,11 @@
+import { Subscribe } from '../pub-sub';
+
 export default class NotificationCenter {
-  constructor() {
-    console.log('init');
+  selector: HTMLElement;
+
+  constructor(selector: HTMLElement) {
+    this.selector = selector;
+
+    Subscribe(selector);
   }
 }
