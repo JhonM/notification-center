@@ -1,27 +1,35 @@
 import { NotificationType } from '../../types';
 
-const labelTemplate = (title: string, isViewed: boolean, index: number) =>
+const labelTemplate = (title: string, isViewed: boolean, index: number, date: string | null) =>
   `
-    <div>${title}</div>
-    <div>${isViewed}</div>
-    <div>${index}</div>
-    <button class="delete-button">Delete ${index}</button>
+    <div class="notification-left">
+        <div class="read-indication">
+            <div class="${isViewed ? 'circle-open' : 'circle-close'}"></div>
+        </div>
+
+        <div class="list-info">
+            <div class="notification-type">New applicant!</div>
+            <div class="notification-description">Marcus Solomon has applied to '${title}'.</div>
+            <div class="notification-stamp">${date}</div>
+        </div>
+    </div>
+    <div class="notification-right">
+        <a href="javaScript:void(0)" class="notification-action">
+          Action
+        </a>
+    </div>
   `;
 
 export default (notification: NotificationType, index: number) => {
-  const { title, isViewed } = notification;
-  const template = document.createElement('div');
-  // template.dataset.shareForm = 'share-box-email-label-container';
+  const { title, isViewed, date } = notification;
+  const template = document.createElement('li');
+  template.classList.add('notification-item');
   template.tabIndex = 0;
-  // template.classList.add(validateEmail(props.email) ? 'valid' : 'invalid');
-  template.innerHTML = labelTemplate(title, isViewed, index);
+  template.innerHTML = labelTemplate(title, isViewed, index, date);
 
-  // remove email label on click
-  template?.querySelector('.delete-button')?.addEventListener('click', () => {
+  template?.querySelector('.notification-action')?.addEventListener('click', () => {
     console.log('clicked');
   });
-
-  console.log(template);
 
   return template;
 };

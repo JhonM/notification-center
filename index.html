@@ -3,13 +3,120 @@
   <head>
     <meta charset="utf-8" />
     <title>Notification center</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="dist/index.es.css" />
   </head>
   <body>
-    <div class="container">
-      <ul id="notification_center"></ul>
+    <div class="section" id="badge">
+        <div class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>loudspeaker</title><g fill="#4a4a4a"><rect x="20" y="10" width="4" height="2"></rect><rect x="18.664" y="5" width="3.973" height="2" transform="translate(-0.191 11.298) rotate(-30.465)"></rect><rect x="19.65" y="14.014" width="2" height="3.973" transform="translate(-3.611 25.687) rotate(-59.536)"></rect><path d="M9,18.775v1.9L4,19.246V17.108l-2-.666V20a1,1,0,0,0,.725.961l7,2A1,1,0,0,0,11,22V19.442Z" fill="#4a4a4a"></path><path d="M16,20a1.01,1.01,0,0,1-.316-.051l-15-5A1,1,0,0,1,0,14V8a1,1,0,0,1,.684-.949l15-5A1,1,0,0,1,17,3V19a1,1,0,0,1-1,1Z" fill="#4a4a4a"></path></g></svg>
+        </div>
     </div>
 
+    <div class="section" id="badge">
+        <div id="list">
+            <div class="notification-heading">
+                <h3>Notifications</h3>
+            </div>
+            <ul id="notification_center" class="notification-list">
+                <li class="notification-item">
+                    <div class="notification-left">
+                        <div class="read-indication">
+                            <div class="circle-close"></div>
+                        </div>
+
+                        <div class="list-info">
+                            <div class="notification-type">New applicant!</div>
+                            <div class="notification-description">Marcus Solomon has applied to 'Rafting in Cambodia'.</div>
+                            <div class="notification-stamp">3h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-right">
+                        <div class="notification-action">
+                        Action
+                        </div>
+                    </div>
+                </li>
+                <li class="notification-item">
+                    <div class="notification-left">
+                        <div class="read-indication">
+                            <div class="circle-close"></div>
+                        </div>
+
+                        <div class="list-info">
+                            <div class="notification-type">New match!</div>
+                            <div class="notification-description">'Free mud baths for healtcare workers' is looking for someone who is interested in <strong>healthcare</strong>, skilled in <strong>marketing</strong>, location <strong>Online / remote</strong>.</div>
+                            <div class="notification-stamp">15h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-right">
+                        <div class="notification-action">
+                        Action
+                        </div>
+                    </div>
+                </li>
+                <li class="notification-item">
+                    <div class="notification-left">
+                        <div class="read-indication">
+                            <div class="circle-open"></div>
+                        </div>
+
+                        <div class="list-info">
+                            <div class="notification-type">Reminder</div>
+                            <div class="notification-description">Your activity 'Free mud baths for healtcare workers' is is due in a couple of days, make sure you finish strong!</div>
+                            <div class="notification-stamp">15h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-right">
+                        <div class="notification-action">
+                        Action
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="notification-footer">
+                Mark all as read
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="live-feed">
+        <div class="section-heading">
+            <h1>What is happening now?</h1>
+        </div>
+        <div id="list">
+            <ul class="notification-list">
+                <li class="notification-item">
+                    <div class="notification-left">
+                        <div class="avatar-human">
+                        </div>
+                        <div class="notification-description">
+                            Helena just joined 'Free mud baths for healtcare workers'.
+                        </div>
+                    </div>
+                </li>
+                <li class="notification-item">
+                    <div class="notification-left">
+                        <div class="avatar-activity">
+                        </div>
+                        <div class="notification-description">
+                            'Free mud baths for healtcare workers' is almost <strong>full</strong>.
+                        </div>
+                    </div>
+                    <div class="notification-right">
+                        <div class="notification-action">
+                            Action
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script src="https://moment.github.io/luxon/global/luxon.min.js"></script>
     <script src="dist/notification-center.min.js"></script>
     <script>
       const notificationId = document.getElementById('notification_center');

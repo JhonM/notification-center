@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { Subscribe } from '../pub-sub';
 import { ListItem } from '../components/list-item';
 import { NotificationType } from '../types';
@@ -24,11 +25,12 @@ export default class NotificationCenter {
     const newNotification = {
       title,
       isViewed: false,
+      date: DateTime.now().toRelative({ unit: 'hours' }),
     };
 
-    console.log(this.notifications, 'add notification');
+    console.log(DateTime.now().toRelative({ unit: 'hours' }));
+
     this.notifications.push(newNotification);
-    console.log(this.notifications, 'add notification');
     this.loadNotifications();
   }
 
