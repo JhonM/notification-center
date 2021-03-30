@@ -1,7 +1,9 @@
 import { Subscribe } from '../pub-sub';
+import { NotificationType } from '../types';
+
 const actId: string[] = [];
 
-export default async (selector: HTMLElement) => {
+export default async (selector: HTMLElement, action: (notification: NotificationType) => void) => {
   const response = await fetch('http://goodup-demo.localhost:4200/api/hooks/latest', {
     method: 'GET',
     headers: {
@@ -9,8 +11,9 @@ export default async (selector: HTMLElement) => {
     },
   });
 
+  console.log('sub...');
   if (response.status === 502) {
-    await Subscribe(selector);
+    await Subscribe(selector, action);
   } else if (response.ok) {
     const json = await response.json();
 
@@ -18,11 +21,13 @@ export default async (selector: HTMLElement) => {
       actId.push(json.data.id);
       const message = json.included[0].attributes;
 
-      showMessage(message.title, selector);
+      console.log(message, 'sub... inside');
+      action(message);
+      // showMessage(message.title, selector);
     }
 
     setTimeout(() => {
-      // Subscribe(selector);
+      Subscribe(selector, action);
     }, 1000);
   }
 };
