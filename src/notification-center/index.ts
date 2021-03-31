@@ -2,22 +2,42 @@ import { DateTime } from 'luxon';
 import { Subscribe } from '../pub-sub';
 import { ListItem } from '../components/list-item';
 import { NotificationType } from '../types';
+import Storage from '../utils/local-storage-worker';
 
-export default class NotificationCenter {
+enum Locals {
+  NOTIFICATIONS = 'NOTIFICATIONS',
+}
+
+export default class NotificationCenter extends Storage<Locals> {
   selector: HTMLElement;
   notifications: NotificationType[];
+  token: any;
 
   constructor(selector: HTMLElement) {
+    super();
+    this.token = this.getLocalNotifications();
     this.selector = selector;
-    this.notifications = [];
+    this.notifications = JSON.parse(this.token);
 
+    if (!this.notifications) {
+      this.notifications = [];
+    }
+
+    this.set(Locals.NOTIFICATIONS, JSON.stringify(this.notifications));
+    // if (this.getAccessToken()) {
+    //   const token: any = this.getAccessToken();
+    //   const parsed = JSON.parse(token);
+    //   console.log(parsed, 'parsed');
+
+    //   // this.notifications.push(parsed);
+    // }
     // this.notifications.push({ title: 'Title', isViewed: false });
     this.init();
   }
 
   init() {
     Subscribe(this.selector, this.addNotification.bind(this));
-    this.loadNotifications();
+    // this.loadNotifications();
   }
 
   addNotification(notification: NotificationType) {
@@ -25,13 +45,16 @@ export default class NotificationCenter {
     const newNotification = {
       title,
       isViewed: false,
-      date: DateTime.now().toRelative({ unit: 'hours' }),
+      date: DateTime.now().toRelative({ unit: 'seconds' }),
     };
 
-    console.log(DateTime.now().toRelative({ unit: 'hours' }));
-
     this.notifications.push(newNotification);
+    this.set(Locals.NOTIFICATIONS, JSON.stringify(this.notifications));
     this.loadNotifications();
+  }
+
+  public getLocalNotifications() {
+    return this.get(Locals.NOTIFICATIONS);
   }
 
   deleteNotification(event: any, index: number) {
@@ -44,13 +67,16 @@ export default class NotificationCenter {
   }
 
   loadNotifications() {
-    localStorage.setItem('NOTIFICATIONS', JSON.stringify(this.notifications));
+    // this.clearItem(Locals.NOTIFICATIONS);
+    // this.set(Locals.NOTIFICATIONS, JSON.stringify(this.notifications));
 
     this.selector.innerHTML = '';
-    const notificationHTML = this.notifications.forEach((notification, index) => {
+    this.notifications.forEach((notification, index) => {
       this.selector.appendChild(ListItem(notification, index));
     });
+  }
 
-    console.log(notificationHTML);
+  getNotifications() {
+    return this.notifications.length;
   }
 }
